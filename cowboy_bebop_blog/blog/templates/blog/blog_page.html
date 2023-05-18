@@ -1,0 +1,27 @@
+{% extends 'blog/layout.html' %}
+
+{% block title %}
+blog
+{% endblock %}
+
+{% block content %}<form action="/main/" method="post">
+    {% csrf_token %}
+    <a href="http://127.0.0.1:8000/blog/create">Create Post</a>
+    <class name='blog_content'>
+        <div>
+            {%for post in blog%}
+            <block>
+                <a>{{post.blog_header}}</a>
+                <img>{{post.img}}</img>
+                <a>{{post.blog_text}}</a>
+                <a>{{post.author}}</a>
+                <a>{{post.date}}</a>
+                <a href="http://127.0.0.1:8000/blog/{{post.pk}}/delete">Delete</a>
+                <a href="http://127.0.0.1:8000/blog/{{post.pk}}/update">Update</a>
+                <a href="http://127.0.0.1:8000/blog/{{post.pk}}/comments/">Comments</a>
+                <br>
+        </block>
+        </div>
+    </class>
+    {% endfor %}
+</form>{% endblock %}

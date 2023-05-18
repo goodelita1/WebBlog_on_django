@@ -1,0 +1,39 @@
+{% extends 'blog/layout.html' %}
+
+{% block title %}
+comment
+{% endblock %}
+
+{% block content %}<form action="/main/" method="post">
+    {% csrf_token %}
+    <a href="http://127.0.0.1:8000/blog/">Back to blog</a>
+    <a href="http://127.0.0.1:8000/blog/comments/create">Write comment</a>
+    <class name='blog_content'>
+        <div>
+            <block>
+                {% if blog_comment %}
+                    <h1>{{ blog_comment.blog_header }}</h1>
+                    <p>{{ blog_comment.blog_text }}</p>
+                    <p>Author: {{ blog_comment.author }}</p>
+                    <p>Date: {{ blog_comment.date }}</p>
+                    <br>
+                    {% if blog_comment.comments.exists %}
+                        {% for comment in blog_comment.comments.all %}
+                            <p>Comment: {{ comment.comment }}</p>
+                            <p>Author: {{ comment.comment_author }}</p>
+                            <p>Time: {{ comment.comment_time }}</p>
+                            <a href="http://127.0.0.1:8000/blog/comments/{{comment.pk}}/update">Update</a>
+                            <a href="http://127.0.0.1:8000/blog/comments/{{comment.pk}}/delete">Delete</a>
+                            <br>
+                        {% endfor %}
+                    {% else %}
+                        <p>No comments</p>
+                    {% endif %}
+                {% else %}
+                    <p>Post not found</p>
+                {% endif %}
+
+        </block>
+        </div>
+    </class>
+</form>{% endblock %}

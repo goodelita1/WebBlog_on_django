@@ -1,0 +1,24 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+main
+{% endblock %}
+
+{% block content %}<form action="/main/" method="post">
+    {% csrf_token %}
+    <a href="http://127.0.0.1:8000/login/">Log in</a>
+    <a href="http://127.0.0.1:8000/signin/">Sign in</a>
+    <class name='blog_content'>
+        <div>
+            {%for post in blog%}
+            <block>
+                <a>{{post.blog_header}}</a>
+                <img>{{post.img}}</img>
+                <a>{{post.blog_text}}</a>
+                <a>{{post.author}}</a>
+                <a>{{post.date}}</a>
+        </block>
+        </div>
+    </class>
+    {% endfor %}
+</form>{% endblock %}
