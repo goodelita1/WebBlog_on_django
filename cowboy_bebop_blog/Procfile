@@ -1,0 +1,1 @@
+web gunicorn cowboy_bebop_blog.wsgi:application --log-file -

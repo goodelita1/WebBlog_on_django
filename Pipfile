@@ -8,6 +8,8 @@ django = "*"
 black = "*"
 flake8 = "*"
 pillow = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
