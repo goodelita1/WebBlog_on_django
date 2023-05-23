@@ -1,0 +1,16 @@
+{% extends 'users/layout.html' %}
+
+
+{%block content%}
+<a href="http://127.0.0.1:8000/blog/">Back to blog</a>
+<br>
+    {%for post in myposts%}
+    <block>
+            <a>{{post.blog_header}}</a>
+            <img>{{post.img}}</img>
+            <a>{{post.blog_text}}</a>
+            <a>{{post.blog_author}}</a>
+            <a>{{post.date}}</a>
+            <br>
+    {%endfor%}
+{%endblock%}

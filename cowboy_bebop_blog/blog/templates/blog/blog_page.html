@@ -6,22 +6,48 @@ blog
 
 {% block content %}<form action="/main/" method="post">
     {% csrf_token %}
+    {% if user.is_authenticated %}
+    <p>{{user.username}}</p>
+    <a href="http://127.0.0.1:8000/blog/profile/{{user.pk}}">Profile</a>
+    <a href="http://127.0.0.1:8000/blog/log_out">Log out</a>
     <a href="http://127.0.0.1:8000/blog/create">Create Post</a>
+    <a href="http://127.0.0.1:8000/blog/hidden_post">My hidden posts</a>
+    <a href="http://127.0.0.1:8000/blog/my_posts">My posts</a>
+    {% else %}
+    <a href="http://127.0.0.1:8000/blog/log_in">Log In</a>
+    {%endif%}
     <class name='blog_content'>
         <div>
-            {%for post in blog%}
-            <block>
-                <a>{{post.blog_header}}</a>
-                <img>{{post.img}}</img>
-                <a>{{post.blog_text}}</a>
-                <a>{{post.author}}</a>
-                <a>{{post.date}}</a>
-                <a href="http://127.0.0.1:8000/blog/{{post.pk}}/delete">Delete</a>
-                <a href="http://127.0.0.1:8000/blog/{{post.pk}}/update">Update</a>
-                <a href="http://127.0.0.1:8000/blog/{{post.pk}}/comments/">Comments</a>
-                <br>
-        </block>
-        </div>
-    </class>
+            {% for post in blog %}
+    {% if not post.blog_image %}
+      <!-- Handle cases where blog_image is empty -->
+      <a>{{ post.blog_header }}</a>
+      <a>{{ post.blog_text }}</a>
+      <a>{{ post.blog_author }}</a>
+      <a>{{ post.date }}</a>
+      <a href="http://127.0.0.1:8000/blog/{{ post.pk }}/delete">Delete</a>
+      <a href="http://127.0.0.1:8000/blog/{{ post.pk }}/update">Update</a>
+      <a href="http://127.0.0.1:8000/blog/{{ post.pk }}/comments/">Comments</a>
+      <br>
+    {% else %}
+      <!-- Display blog_image if available -->
+      <a>{{ post.blog_header }}</a>
+      <img src="{{ post.blog_image.url }}" alt="{{ post.blog_header }}" width="300" height="200">
+      <a>{{ post.blog_text }}</a>
+      <a>{{ post.blog_author }}</a>
+      <a>{{ post.date }}</a>
+      <a href="http://127.0.0.1:8000/blog/{{ post.pk }}/delete">Delete</a>
+      <a href="http://127.0.0.1:8000/blog/{{ post.pk }}/update">Update</a>
+      <a href="http://127.0.0.1:8000/blog/{{ post.pk }}/comments/">Comments</a>
+      <br>
+    {% endif %}
     {% endfor %}
-</form>{% endblock %}
+  </div>
+</form>
+{% endblock %}
+
+
+
+
+
+

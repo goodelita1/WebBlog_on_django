@@ -7,28 +7,36 @@ comment
 {% block content %}<form action="/main/" method="post">
     {% csrf_token %}
     <a href="http://127.0.0.1:8000/blog/">Back to blog</a>
-    <a href="http://127.0.0.1:8000/blog/comments/create">Write comment</a>
+    {{user.username}}
+    <a href="#" onclick="addCreate()">Create commnet</a>
+        <script>
+        function addCreate() {
+            var currentUrl = window.location.href;
+            var newUrl = currentUrl + "create/";
+            window.location.href = newUrl;
+        }
+        </script>
     <class name='blog_content'>
         <div>
             <block>
                 {% if blog_comment %}
                     <h1>{{ blog_comment.blog_header }}</h1>
                     <p>{{ blog_comment.blog_text }}</p>
-                    <p>Author: {{ blog_comment.author }}</p>
+                    <p>Author: {{ blog_comment.blog_author }}</p>
                     <p>Date: {{ blog_comment.date }}</p>
                     <br>
-                    {% if blog_comment.comments.exists %}
-                        {% for comment in blog_comment.comments.all %}
-                            <p>Comment: {{ comment.comment }}</p>
-                            <p>Author: {{ comment.comment_author }}</p>
-                            <p>Time: {{ comment.comment_time }}</p>
+                    {%if blog_comment.commentmodel_set.all%}
+                            {% for comment in blog_comment.commentmodel_set.all %}
+                            <p>{{ comment.comment }}</p>
+                            <p>By: {{ comment.comment_author.username }}</p>
+                            <p>Posted at: {{ comment.comment_time }}</p>
                             <a href="http://127.0.0.1:8000/blog/comments/{{comment.pk}}/update">Update</a>
                             <a href="http://127.0.0.1:8000/blog/comments/{{comment.pk}}/delete">Delete</a>
                             <br>
                         {% endfor %}
                     {% else %}
+                    {%endif%}
                         <p>No comments</p>
-                    {% endif %}
                 {% else %}
                     <p>Post not found</p>
                 {% endif %}

@@ -6,8 +6,8 @@ main
 
 {% block content %}<form action="/main/" method="post">
     {% csrf_token %}
-    <a href="http://127.0.0.1:8000/login/">Log in</a>
-    <a href="http://127.0.0.1:8000/signin/">Sign in</a>
+    <a href="http://127.0.0.1:8000/blog/log_in/">Log in</a>
+    <a href="http://127.0.0.1:8000/blog/sign_up/">Sign in</a>
     <class name='blog_content'>
         <div>
             {%for post in blog%}
